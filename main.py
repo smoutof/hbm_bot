@@ -43,5 +43,5 @@ def main():
 try:
     main()
 except Exception as e:
-    print(str(e))
+    print(f'Unexpected error: {str(e)}')
     time.sleep(10000)
