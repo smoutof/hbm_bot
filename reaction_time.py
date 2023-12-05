@@ -1,5 +1,4 @@
 import pyautogui
-import time
 
 def get_pixel_color(x, y):
     return pyautogui.pixel(x, y)
@@ -9,12 +8,9 @@ def click(x, y):
 
 def main():
     while True:
-        current_color = get_pixel_color(550, 350)
+        current_x, current_y = pyautogui.position()
+        current_color = get_pixel_color(current_x, current_y)
         if current_color == (75, 219, 106):
-            click(550, 350)
+            click(current_x, current_y)
 
-try:
-    main()
-except Exception as e:
-    print(f'Unexpected error: {str(e)}')
-    time.sleep(10000)
+main()
