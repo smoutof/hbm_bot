@@ -1,21 +1,32 @@
 from selenium import webdriver
-from selenium.webdriver.firefox.options import Options
+from selenium.webdriver.firefox.service import Service
 from bs4 import BeautifulSoup
 import pyautogui, time
-
-
-# Set up Firefox options
-options = Options()
-options.headless = False  # Set to True if you don't want a visible browser window
+from Resources import funcs
 
 # Specify the Firefox path
-firefox_binary_path = "C:\\Users\\orasa\\AppData\\Local\Mozilla Firefox\\firefox.exe"  # Replace with your Firefox path
+firefox_binary_path = funcs.findFirefox()  # Try to find Firefox path
+
+# If the path wasn't found, do this:
+# firefox_binary_path = "C:/Your/Own/Firefox/Path"
+
+if not firefox_binary_path: # If Firefox doesn't exist, quit the program
+    input()
+    raise SystemExit
 
 # Specify the path to the GeckoDriver executable
-geckodriver_path = "./geckodriver.exe"
+geckodriver_path = "./Resources/geckodriver.exe"
 
- # Create a Firefox WebDriver instance with the specified paths
-driver = webdriver.Firefox(options=options, executable_path=geckodriver_path, firefox_binary=firefox_binary_path)
+# Set up Firefox options
+firefox_options = webdriver.FirefoxOptions()
+firefox_options.headless = False
+firefox_options.binary_location = firefox_binary_path
+
+# Set up service
+firefox_service = Service(geckodriver_path)
+
+# Create a Firefox WebDriver instance with the specified paths
+driver = webdriver.Firefox(options=firefox_options, service=firefox_service)
 
 
 # Open Human Benchmark typing test in Firefox
