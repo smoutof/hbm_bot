@@ -1,4 +1,3 @@
-import pyautogui
 import time
 from Resources import funcs
 
